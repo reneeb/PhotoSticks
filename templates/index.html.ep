@@ -1,0 +1,23 @@
+% layout 'default';
+
+% my $pos   = stash('pos') || param('pos') || 0;
+% $pos++;
+% my %photo = get_photo( $pos );
+% my @tags  = @{ config->{tags} || [] };
+
+<form action="<%= url_for('/') %>" method="post">
+<div class="row">
+  <div class="col-md-10">
+      <img src="data:image/jpg;base64,<%= $photo{binary} %>" style="width: 800px;">
+      <input type="hidden" name="pos" value="<%= $pos %>">
+      <input type="hidden" name="photo" value="<%= $photo{md5_path} %>">
+  </div>
+  <div class="col-md-2">
+      Basename: <%= $photo{basename} %><br />
+      Taken: <%= $photo{taken} %><br />
+      Position: <%= $pos %><br />
+      <%= select_field tags => \@tags, multiple => 1 %><br />
+      <%= submit_button 'Ok!' %><br />
+  </div>
+</div>
+</form>

@@ -1,0 +1,17 @@
+{
+    "secrets": ["lasjdflajsdljvjlasdjlajsdljvkjdljfh"],
+    "use_date" : 1,
+    "db_name" : "my_photos",
+    "source_dirs" : [
+    ],
+    "target_dir" : "/home/images/",
+    "tags" : [
+        "Flower",
+        "Hamburg",
+        "Munich",
+        "Lakes"
+    ],
+    "hypnotoad" : {
+        "port" : 1234,
+    }
+}

@@ -1,0 +1,39 @@
+% layout 'default';
+
+<div class="row">
+% for my $key ( sort keys %{ $tag_photos || {} } ) {
+  <div class="col-md-3">
+      <h2><%= $key %></h2>
+      <ul>
+      % for my $photo ( @{ $tag_photos->{$key} || [] } ) {
+        <li><%= $photo->[0] %> (<%= $photo->[1] %>)</li>
+      % }
+      </ul>
+      <input type="hidden" name="tag" value="<%= $key %>">
+      <%= submit_button 'Create set for ' . $key, class => 'submitbtn', id => $key  %>
+  </div>
+% }
+</div>
+
+<script type="text/javascript">//<![CDATA[
+    $('.submitbtn').bind( 'click', function() {
+        var photo_tag = $(this).attr('id');
+        $.ajax({
+            url: '<%= url_for('/create') %>',
+            type: 'post',
+            data : {
+                tag: photo_tag
+            },
+            success: function( data ) {
+                if ( data.success == 1 ) {
+                    $('#maincontainer').prepend('<div class="alert alert-success alert-dismissible" role="alert" id="alert_' + photo_tag + '">Created Photoset for ' + photo_tag + '</div>');
+                }
+                else {
+                    $('#maincontainer').prepend('<div class="alert alert-danger alert-dismissible" role="alert" id="alert_' + photo_tag + '">Photoset for ' + photo_tag + ' could not be created</div>');
+                }
+            }
+        });
+        return false;
+    });
+//]]></script>
+
